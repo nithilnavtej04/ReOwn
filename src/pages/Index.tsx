@@ -1,44 +1,116 @@
-import { Button } from "@/components/ui/button";
-import { useNavigate } from "react-router-dom";
+import React from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  SafeAreaView,
+  Dimensions,
+} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
+import LinearGradient from 'react-native-linear-gradient';
+import Button from '../components/ui/Button';
+
+const {width, height} = Dimensions.get('window');
 
 const Index = () => {
-  const navigate = useNavigate();
+  const navigation = useNavigation();
 
   return (
-    <div className="min-h-screen bg-gradient-purple flex flex-col items-center justify-center text-white px-6">
-      <div className="text-center mb-16">
-        <h1 className="text-6xl font-bold mb-4 tracking-tight">
-          Re<span className="text-white/90">O</span>wn
-        </h1>
-        <p className="text-xl font-light tracking-widest mb-2">MARKETPLACE</p>
-        <p className="text-lg font-medium opacity-90">Buy, Sell, Connect</p>
-      </div>
+    <LinearGradient
+      colors={['#A78BFA', '#7C3AED']}
+      style={styles.container}
+      start={{x: 0, y: 0}}
+      end={{x: 1, y: 1}}>
+      <SafeAreaView style={styles.safeArea}>
+        <View style={styles.content}>
+          <View style={styles.titleContainer}>
+            <Text style={styles.title}>
+              Re<Text style={styles.titleAccent}>O</Text>wn
+            </Text>
+            <Text style={styles.subtitle}>MARKETPLACE</Text>
+            <Text style={styles.tagline}>Buy, Sell, Connect</Text>
+          </View>
 
-      <div className="w-full max-w-sm space-y-4">
-        <Button
-          variant="reown-white"
-          size="lg"
-          className="w-full text-lg"
-          onClick={() => navigate("/create-account")}
-        >
-          Get Started
-        </Button>
-        
-        <Button
-          variant="reown-outline"
-          size="lg"
-          className="w-full text-lg"
-          onClick={() => navigate("/auth")}
-        >
-          Sign In
-        </Button>
-      </div>
+          <View style={styles.buttonContainer}>
+            <Button
+              title="Get Started"
+              onPress={() => navigation.navigate('CreateAccount' as never)}
+              variant="reown-white"
+              size="lg"
+              style={styles.button}
+            />
+            <Button
+              title="Sign In"
+              onPress={() => navigation.navigate('Auth' as never)}
+              variant="reown-outline"
+              size="lg"
+              style={styles.button}
+            />
+          </View>
 
-      <div className="absolute bottom-2 w-full">
-        <div className="w-32 h-1 bg-white/30 rounded-full mx-auto"></div>
-      </div>
-    </div>
+          <View style={styles.indicator} />
+        </View>
+      </SafeAreaView>
+    </LinearGradient>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  safeArea: {
+    flex: 1,
+  },
+  content: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 24,
+  },
+  titleContainer: {
+    alignItems: 'center',
+    marginBottom: 64,
+  },
+  title: {
+    fontSize: 64,
+    fontWeight: 'bold',
+    color: '#FFFFFF',
+    letterSpacing: -2,
+    marginBottom: 16,
+  },
+  titleAccent: {
+    opacity: 0.9,
+  },
+  subtitle: {
+    fontSize: 20,
+    fontWeight: '300',
+    color: '#FFFFFF',
+    letterSpacing: 4,
+    marginBottom: 8,
+  },
+  tagline: {
+    fontSize: 18,
+    fontWeight: '500',
+    color: '#FFFFFF',
+    opacity: 0.9,
+  },
+  buttonContainer: {
+    width: '100%',
+    maxWidth: 320,
+    gap: 16,
+  },
+  button: {
+    width: '100%',
+  },
+  indicator: {
+    position: 'absolute',
+    bottom: 8,
+    width: 128,
+    height: 4,
+    backgroundColor: 'rgba(255, 255, 255, 0.3)',
+    borderRadius: 2,
+  },
+});
 
 export default Index;
